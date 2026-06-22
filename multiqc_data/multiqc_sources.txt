@@ -1,0 +1,6 @@
+Module	Section	Sample Name	Source
+fastp	all_sections	SRR1553428	/home/mahdieh/mini_wes_nf/work/7d/c66d94cbdfbef665518e2417e9ab63/SRR1553428_fastp.json
+FastQC	all_sections	SRR1553428_1	/home/mahdieh/mini_wes_nf/work/0a/02307ae987e16376917bb4439d05b9/SRR1553428_1_fastqc.zip
+FastQC	all_sections	SRR1553428_2	/home/mahdieh/mini_wes_nf/work/0a/02307ae987e16376917bb4439d05b9/SRR1553428_2_fastqc.zip
+FastQC	all_sections	SRR1553428_R1	/home/mahdieh/mini_wes_nf/work/d2/7a20211a4d202e657246a3c5428d54/SRR1553428_R1.trim_fastqc.zip
+FastQC	all_sections	SRR1553428_R2	/home/mahdieh/mini_wes_nf/work/d2/7a20211a4d202e657246a3c5428d54/SRR1553428_R2.trim_fastqc.zip

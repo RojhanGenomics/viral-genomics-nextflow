@@ -1,0 +1,82 @@
+params.samples = "samples.csv"
+
+workflow {
+
+    samples_ch = Channel
+        .fromPath(params.samples)
+        .splitCsv(header:true)
+        .map { row -> tuple(row.sample, file(row.fastq_1), file(row.fastq_2)) }
+
+    FASTP(samples_ch)
+
+FASTQC_TRIMMED(FASTP.out)
+
+BWA_MEM(FASTP.out)
+}
+
+/* ---------------- FASTP ---------------- */
+
+process FASTP {
+
+    tag "$sample"
+
+    input:
+    tuple val(sample), path(read1), path(read2)
+
+    output:
+    tuple val(sample), path("*.fastq.gz")
+
+    script:
+    """
+    fastp \
+        -i $read1 \
+        -I $read2 \
+        -o ${sample}_R1.trim.fastq.gz \
+        -O ${sample}_R2.trim.fastq.gz \
+        -h ${sample}_fastp.html \
+        -j ${sample}_fastp.json
+    """
+}
+
+/* ---------------- FASTQC ---------------- */
+
+process FASTQC_TRIMMED {
+
+    tag "$sample"
+
+    input:
+    tuple val(sample), path(reads)
+
+    output:
+    path "*fastqc*"
+
+    script:
+    """
+    fastqc $reads
+    """
+}
+/* ---------------- BWA MEM ---------------- */
+
+process BWA_MEM {
+
+    tag "$sample"
+
+    input:
+    tuple val(sample), path(reads)
+
+    output:
+tuple val(sample), path("${sample}.sam")
+
+    script:
+
+    def r1 = reads.find { it.name.contains("_R1") }
+    def r2 = reads.find { it.name.contains("_R2") }
+
+    """
+    bwa mem \
+      reference/GCF_000848505.1_ViralProj14703_genomic.fna \
+      $r1 \
+      $r2 \
+      > ${sample}.sam
+    """
+}
