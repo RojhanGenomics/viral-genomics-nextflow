@@ -1,2 +1,2 @@
 sample,fastq_1,fastq_2
-SRR1553428,/home/mahdieh/mini_wes_nf/data/SRR1553428_1.fastq,/home/mahdieh/mini_wes_nf/data/SRR1553428_2.fastq
+SRR1553428,fastq/SRR1553428_1.fastq,fastq/SRR1553428_2.fastq

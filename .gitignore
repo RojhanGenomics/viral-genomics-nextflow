@@ -24,3 +24,7 @@ dag.dot
 multiqc_data/
 reference/
 Miniconda3-latest-Linux-x86_64.sh
+# Docker
+*.dockerignore
+Dockerfile.*
+environment.yml
